@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {  computed, onActivated, onMounted, reactive, ref } from 'vue';
+import {  reactive, ref } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
@@ -74,11 +74,42 @@ const resetForm = () => {
 </a>
     <div class="max-w-lg mx-auto">
       <form @submit.prevent="onSubmit" class="grid gap-6">
-        @csrf
-        <label class="block">
-          <span class="text-gray-700">Nom :</span>
+       <span hidden>@csrf</span> 
+        <label class="relative block w-48 h-48 bg-gray-200 rounded-md overflow-hidden cursor-pointer mx-auto">
+  <input type="file" class="absolute inset-0 opacity-0 z-10" @change="onFileChange">
+  <div class="absolute inset-0 flex justify-center items-center">
+    <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2z"></path>
+    </svg>
+  </div>
+  <img :src="imageUrl" v-if="imageUrl" class="absolute inset-0 object-cover w-full h-full">
+</label>
+
+<label class="block">
+          <span class="text-gray-700">Titre :</span>
           <input type="text" class="mt-1 block w-full" v-model="form.name">
         </label>
+
+
+<label class="block  ">
+        <span class="text-gray-700 block">Catégorie :
+
+        </span>
+          <div class="mt-1 inline-block" v-for="category in categories">
+      <button 
+        :key="category.id"
+        type="button"
+        class="mr-2 mb-2 px-4 py-2 bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-300"
+        :class="{ 'bg-indigo-800 text-white': form.category === category.id }"
+        @click="form.category = category.id"
+      >
+        {{ category.name}}
+      </button>
+  </div>
+</label>
+
+      
   
         <label class="block">
           <span class="text-gray-700">Description :</span>
@@ -92,8 +123,8 @@ const resetForm = () => {
   
         <label class="block">
           <span class="text-gray-700">Coordonnée :</span>
-          <input type="text" class="mt-1 block w-full" v-model="form.latitude">
-          <input type="text" class="mt-1 block w-full" v-model="form.longitude">
+          <input type="number" class="mt-1 block w-full" v-model="form.latitude">
+          <input type="number" class="mt-1 block w-full" v-model="form.longitude">
         </label>
   
         <label class="block">
@@ -101,26 +132,9 @@ const resetForm = () => {
           <input type="datetime-local" class="mt-1 block w-full" v-model="form.date">
         </label>
   
-        <label class="block">
-          <span class="text-gray-700">Image :</span>
-          <input type="file" class="mt-1 block w-full" @change="onFileChange">
-          <img :src="imageUrl" v-if="imageUrl">
-        </label>
+   
   
-        <label class="block">
-        <span class="text-gray-700">Catégorie :</span>
-          <div class="mt-1  " v-for="category in categories">
-      <button 
-        :key="category.id"
-        type="button"
-        class="mr-2 mb-2 px-4 py-2 bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-300"
-        :class="{ 'bg-indigo-800 text-white': form.category === category.id }"
-        @click="form.category = category.id"
-      >
-        {{ category.name}}
-      </button>
-  </div>
-</label>
+       
         
         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500" >Ajouter</button>
       </form>

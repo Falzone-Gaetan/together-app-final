@@ -84,13 +84,14 @@ class ActivityController extends Controller
         $image = $request->file('image');
         $imagePath = $image->storePublicly('img');
         $activity->image = $imagePath;
-        
+
     }
     
 
     $activity->save();
 
-    return redirect()->route('dashboard')->with('success', 'Activité créée avec succès');
+    return redirect()->route('home')->with('success', 'Votre activité a été enregistrée avec succès.');
+
 }
 
 }

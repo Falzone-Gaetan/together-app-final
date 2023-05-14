@@ -1,5 +1,4 @@
 <script setup>
-import itemCategory from "./ItemCategory.vue";
 defineProps({
     categories: Array,
 
