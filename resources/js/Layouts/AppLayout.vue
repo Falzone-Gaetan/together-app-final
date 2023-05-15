@@ -29,7 +29,7 @@ const logout = () => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gradient-to-b from-teal-300 to-emerald-400 pb-12">
+        <div class="min-h-screen bg-gradient-to-b from-teal-400 to-emerald-300 pb-12">
             
 
             <!-- Page Heading -->

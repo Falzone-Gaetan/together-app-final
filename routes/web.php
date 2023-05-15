@@ -46,7 +46,8 @@ Route::middleware([
     })->name('activities.show');
 
     Route::get('/my-profile', function () {
-        return Inertia::render('Profile/MyProfile');
+        $user = auth()->user();
+        return Inertia::render('Profile/MyProfile', ['user' => $user]);
     })->name('myprofile');
 
     Route::get('/addActivity', function () {
@@ -55,7 +56,12 @@ Route::middleware([
             'categories' => App\Models\Category::get()
         ]);
     })->name('add');
-    Route::post('/activities/add', [ActivityController::class, 'store'])->name('activities.store');
-
+    Route::get('/category/{id}', function (int $id) {
+        $category = App\Models\Category::find($id);
+        return Inertia::render('Activities/Index', [
+            'activities' => App\Models\Activity::where('category_id', $id)->get(),
+            'category' => $category
+        ]);
+    })->name('index');
     
 });

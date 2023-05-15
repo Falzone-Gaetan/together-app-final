@@ -1,10 +1,9 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-defineProps({
-    user: Object,
-});
-
-
+const props = defineProps({
+  user: Array,
+})
+console.log(props)
 </script>
 <template>
 <AppLayout>
@@ -37,43 +36,22 @@ defineProps({
    
    <div class="flex flex-col items-start mb-4">
      
-     <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+     <div class="w-16 h-16 bg-gray-300 rounded-full mr-4"></div>
      <div>
-       <h3 class="text-lg font-medium text-gray-200 pt-4">Nom de l'auteur</h3>
-       <p class="text-sm text-gray-200">Fonction de l'auteur</p>
+       <h3 class="text-4xl font-medium text-gray-200 pt-4"> {{ props.user.name }}</h3>
+       <h2 class="text-xl font-medium text-gray-200 pt-4">{{ props.user.email }}</h2>
      </div>
    </div>
   
  </section>
      
 
-    <!-- Section de description de l'activité -->
-    <section class=" py-6 ml-4">
-      <h2 class="text-2xl font-bold text-gray-200 mb-2">Description</h2>
-      <p class="text-gray-200 leading-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vulputate nunc et est aliquet pretium. Duis dictum velit et metus tincidunt, quis ultrices neque hendrerit. Fusce mattis nisl eget ante ultricies, eu bibendum massa laoreet.  </p>
-    </section>
-
 
    
 
 <section class=" ml-4 py-6">
 <div class="py-4 ">
-    <h3 class="text-lg  text-gray-200 font-bold mb-2">Nombre de participants</h3>
-    <div class="grid grid-cols-6 gap-1 my-4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 1">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-    </div>
+    
 </div>
 </section>
 <a class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-6 rounded-2xl ml-4 mb-8" :href="route('add')">

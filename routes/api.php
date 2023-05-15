@@ -24,3 +24,4 @@ Route::get('/activities', [ActivityController::class, 'getActivitiesWithDistance
 Route::post('/activities/add', [ActivityController::class, 'store']);
 Route::get('/categories', [CategoryController::class, 'index']);
 
+

@@ -39,8 +39,8 @@ defineProps({
      
      <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
      <div>
-       <h3 class="text-lg font-medium text-gray-200 pt-4">Nom de l'auteur</h3>
-       <p class="text-sm text-gray-200">Fonction de l'auteur</p>
+       <h3 class="text-lg font-medium text-gray-200 pt-4">{{ user.name }}</h3>
+       <h2 class="text-xl font-medium text-gray-200 pt-4">{{ user.email }}</h2>
      </div>
    </div>
   
@@ -57,24 +57,7 @@ defineProps({
    
 
 <section class=" ml-4 py-6">
-<div class="py-4 ">
-    <h3 class="text-lg  text-gray-200 font-bold mb-2">Nombre de participants</h3>
-    <div class="grid grid-cols-6 gap-1 my-4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 1">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 2">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 3">
-        <img class="w-10 h-10  rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 4">
-        <img class="w-10 h-10 rounded-full object-cover mr-2" src="https://via.placeholder.com/150" alt="Participant 5">
-    </div>
-</div>
+
 </section>
 
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Activity;
+use App\Models\Category;
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Pagination\LengthAwarePaginator;
@@ -86,12 +88,21 @@ class ActivityController extends Controller
         $activity->image = $imagePath;
 
     }
-    
+    $user = auth()->user();
+    $activity->user()->attach($user);
 
     $activity->save();
 
-    return redirect()->route('home')->with('success', 'Votre activité a été enregistrée avec succès.');
+    return redirect()->route('dashboard')->with('success', 'Votre activité a été enregistrée avec succès.');
 
+}
+public function index($id)
+{
+    $category = Category::findOrFail($id);
+    $activities = $category->activities;
+
+    return response()->json($activities);
+    
 }
 
 }
