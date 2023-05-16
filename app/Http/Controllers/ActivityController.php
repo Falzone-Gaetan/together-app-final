@@ -108,8 +108,7 @@ public function index($id)
     $category = Category::findOrFail($id);
     $activities = $category->activities;
 
-    return response()->json($activities);
-    
+    return response()->json($activities);   
 }
 private function getCoordinates($location)
 {
