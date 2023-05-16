@@ -27,7 +27,7 @@ const switchToTeam = (team) => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gradient-to-b from-teal-400 to-emerald-300 pb-12">
+        <div class="min-h-screen bg-gradient-to-b from-teal-400 to-cyan-700 pb-12">
             
 
             <!-- Page Heading -->
