@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Category;
+use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
@@ -66,8 +67,6 @@ class ActivityController extends Controller
         'name' => 'required',
         'description' => 'required',
         'location' => 'required',
-        'latitude' => 'required',
-        'longitude' => 'required',
         'date' => 'required',
         'category_id' => 'required',
         'image' => 'required|image'
@@ -77,23 +76,31 @@ class ActivityController extends Controller
     $activity->name = $validatedData['name'];
     $activity->description = $validatedData['description'];
     $activity->location = $validatedData['location'];
-    $activity->latitude = $validatedData['latitude'];
-    $activity->longitude = $validatedData['longitude'];
-    $activity->date = date('Y-m-d H:i:s', strtotime($validatedData['date'].':00'));
+    $activity->date = date('Y-m-d H:i:s', strtotime($validatedData['date'] . ':00'));
     $activity->category_id = $validatedData['category_id'];
 
     if ($request->hasFile('image')) {
         $image = $request->file('image');
         $imagePath = $image->storePublicly('img');
         $activity->image = $imagePath;
-
     }
+
+    // Get the latitude and longitude coordinates using the getCoordinates method
+    $coordinates = $this->getCoordinates($validatedData['location']);
+
+    if ($coordinates) {
+        $activity->latitude = $coordinates['latitude'];
+        $activity->longitude = $coordinates['longitude'];
+    } else {
+        // Handle the case where the API request failed or coordinates were not found
+        // You may choose to set default values or display an error message to the user
+    }
+
     $user = auth()->user();
     $activity->user()->attach($user);
-
     $activity->save();
 
-    return redirect()->route('dashboard')->with('success', 'Votre activité a été enregistrée avec succès.');
+    return to_route('dashboard');
 
 }
 public function index($id)
@@ -103,6 +110,21 @@ public function index($id)
 
     return response()->json($activities);
     
+}
+private function getCoordinates($location)
+{
+    $apiKey = 'b68afb69c2607c15cb4f6bf022f17e25'; // Replace with your actual API key
+    $response = Http::get("https://api.openweathermap.org/geo/1.0/direct?q=$location&limit=1&appid=$apiKey");
+
+    if ($response->successful() && !empty($response['0'])) {
+        $data = $response[0];
+        $latitude = $data['lat'];
+        $longitude = $data['lon'];
+
+        return compact('latitude', 'longitude');
+    }
+
+    return null;
 }
 
 }

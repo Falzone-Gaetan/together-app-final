@@ -76,10 +76,7 @@ defineProps({
    
   <div class="flex flex-col items-start mb-4" v-for="user in activity.user" :key="user.id">
     <h2 class="text-xl font-bold text-gray-200 py-4">Organisé par </h2>
-    <a  v-if="user.pivot.is_owner === 1" :href="
-      route('profile.show', {
-            id: user.id,
-      })">
+    <a  v-if="user.pivot.is_owner === 1" href="#">
     <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
   </a>
     <div >

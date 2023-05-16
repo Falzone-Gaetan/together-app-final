@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -32,12 +33,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/profile/{id}', function (int $id) {
-        return Inertia::render('Profile/Show', [
-            'user' => App\Models\User::with('activities')->findOrFail($id)
-        ]);
-    
-    })->name('profile.show');
     
     Route::get('/activity/{id}', function (int $id) {
         return Inertia::render('Activities/Show', [
@@ -45,10 +40,10 @@ Route::middleware([
         ]);
     })->name('activities.show');
 
-    Route::get('/my-profile', function () {
+    Route::get('/Profile/Show', function () {
         $user = auth()->user();
-        return Inertia::render('Profile/MyProfile', ['user' => $user]);
-    })->name('myprofile');
+        return Inertia::render('Profile/Show');
+    })->name('show');
 
     Route::get('/addActivity', function () {
         return Inertia::render('Activities/Add', [ 
@@ -64,4 +59,8 @@ Route::middleware([
         ]);
     })->name('index');
     
+    Route::get('/profileUpdate', function () {
+        $user = auth()->user();
+        return Inertia::render('Profile/Partials/UpdateProfileInformationForm', ['user' => $user]);
+    })->name('profile.update');
 });

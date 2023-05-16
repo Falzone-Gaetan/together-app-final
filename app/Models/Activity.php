@@ -17,7 +17,7 @@ class Activity extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'activity_user')->withPivot('is_owner');
+        return $this->belongsToMany(User::class, 'user_activity')->withPivot('is_owner');
     }
 
 

@@ -2,6 +2,7 @@
 import {  reactive, ref } from 'vue';
 import axios from 'axios';
 import { useCityStore } from '../../stores/cityStore';
+import { router } from '@inertiajs/vue3'
 
 defineProps({
   activity: { type: Object },
@@ -40,16 +41,16 @@ const onSubmit = () => {
   formData.append('image', form.image);
 
  
-  axios.post('/api/activities/add', formData)
+  router.post('/api/activities/add', formData)
     .then(response => {
       console.log('Response:', response);
-   
     })
     .catch(error => {
       console.error('Error:', error);
     });
   console.log(Object.fromEntries(formData.entries()));
   resetForm();
+  
 };
 
 const resetForm = () => {
@@ -121,11 +122,7 @@ const resetForm = () => {
           <input type="text" class="mt-1 block w-full rounded-lg border-none bg-teal-500  bg-opacity-30 focus:outline-none " v-model="form.location">
         </label>
   
-        <label class="block mx-4">
-          <span class="text-gray-700 font-semibold">Coordonnée :</span>
-          <input type="text" class="mt-1 block w-full rounded-lg border-none bg-teal-500  bg-opacity-30 focus:outline-none" v-model="form.latitude">
-          <input type="text" class="mt-1 block w-full rounded-lg border-none bg-teal-500  bg-opacity-30 focus:outline-none" v-model="form.longitude">
-        </label>
+       
   
         <label class="block mx-4">
           <span class="text-gray-700 font-semibold">Date :</span>

@@ -1,67 +1,57 @@
-<script setup="ts">
+<script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue';
+import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm.vue';
+import SectionBorder from '@/Components/SectionBorder.vue';
+import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue';
+import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue';
+import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
+
 defineProps({
-    user: Object,
+    confirmsTwoFactorAuthentication: Boolean,
+    sessions: Array,
 });
-
-
 </script>
+
 <template>
-<AppLayout>
-    <div class=" font-sans leading-normal tracking-normal  from-teal-300 to-emerald-400 ">
+    <AppLayout title="Profile">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Profile
+            </h2>
+        </template>
 
-    
+        <div>
+            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+                <div v-if="$page.props.jetstream.canUpdateProfileInformation">
+                    <UpdateProfileInformationForm :user="$page.props.auth.user" />
 
+                    <SectionBorder />
+                </div>
 
-<!-- Header avec l'image de l'activité -->
+                <div v-if="$page.props.jetstream.canUpdatePassword">
+                    <UpdatePasswordForm class="mt-10 sm:mt-0" />
 
-<nav class="flex flex-row items-center justify-between bg-gray-600 p-2  w-full bg-opacity-50">
- 
- <a :href="route('dashboard')" class="text-white inline-block mx-2 py-2 px-4  basis-2/3">
-<svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
- <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/>
-</svg>
-</a>
+                    <SectionBorder />
+                </div>
 
-     <button class="text-white inline-block mr-2 rounded-full  ">
-<svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
- <path d="M8 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-8zm6 14H8V6h6v12z"/>
-</svg>
+                <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
+                    <TwoFactorAuthenticationForm
+                        :requires-confirmation="confirmsTwoFactorAuthentication"
+                        class="mt-10 sm:mt-0"
+                    />
 
-</button>
+                    <SectionBorder />
+                </div>
 
+                <LogoutOtherBrowserSessionsForm :sessions="sessions" class="mt-10 sm:mt-0" />
 
-</nav>
+                <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
+                    <SectionBorder />
 
-<section class="ml-4  py-6">
-   
-   <div class="flex flex-col items-start mb-4">
-     
-     <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-     <div>
-       <h3 class="text-lg font-medium text-gray-200 pt-4">{{ user.name }}</h3>
-       <h2 class="text-xl font-medium text-gray-200 pt-4">{{ user.email }}</h2>
-     </div>
-   </div>
-  
- </section>
-     
-
-    <!-- Section de description de l'activité -->
-    <section class=" py-6 ml-4">
-      <h2 class="text-2xl font-bold text-gray-200 mb-2">Description</h2>
-      <p class="text-gray-200 leading-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vulputate nunc et est aliquet pretium. Duis dictum velit et metus tincidunt, quis ultrices neque hendrerit. Fusce mattis nisl eget ante ultricies, eu bibendum massa laoreet.  </p>
-    </section>
-
-
-   
-
-<section class=" ml-4 py-6">
-
-</section>
-
-
-
-</div>
-</AppLayout>
+                    <DeleteUserForm class="mt-10 sm:mt-0" />
+                </template>
+            </div>
+        </div>
+    </AppLayout>
 </template>
