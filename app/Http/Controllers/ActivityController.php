@@ -110,6 +110,7 @@ public function index($id)
 
     return response()->json($activities);   
 }
+
 private function getCoordinates($location)
 {
     $apiKey = 'b68afb69c2607c15cb4f6bf022f17e25'; // Replace with your actual API key
