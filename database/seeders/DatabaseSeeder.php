@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Risus Ornare Mollis Dolor',
                 'description' => 'Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.',
-                'location' => 'Purus Nibh',
+                'location' => '4050, Chaufontaine',
                 'date' => Carbon::create(2023, 6, 9, 14, 30, 0),
                 'lat' => '50.14141',
                 'long' => '5.03345',
